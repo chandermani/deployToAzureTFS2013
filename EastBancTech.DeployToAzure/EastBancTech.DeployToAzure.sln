@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EastBancTech.DeployToAzure.Activities", "EastBancTech.DeployToAzure.Activities\EastBancTech.DeployToAzure.Activities.csproj", "{E17EFC81-04C5-46DE-BB37-E665C7BC9A14}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EastBancTech.DeployToAzure.Templates", "EastBancTech.DeployToAzure.Templates\EastBancTech.DeployToAzure.Templates.csproj", "{AA809916-98B5-40B6-8033-6DBF77C7F810}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 3
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs26
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = EastBancTech.DeployToAzure.Activities\\EastBancTech.DeployToAzure.Activities.csproj
+		SccProjectName1 = EastBancTech.DeployToAzure.Activities
+		SccLocalPath1 = EastBancTech.DeployToAzure.Activities
+		SccProjectUniqueName2 = EastBancTech.DeployToAzure.Templates\\EastBancTech.DeployToAzure.Templates.csproj
+		SccProjectName2 = EastBancTech.DeployToAzure.Templates
+		SccLocalPath2 = EastBancTech.DeployToAzure.Templates
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E17EFC81-04C5-46DE-BB37-E665C7BC9A14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E17EFC81-04C5-46DE-BB37-E665C7BC9A14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E17EFC81-04C5-46DE-BB37-E665C7BC9A14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E17EFC81-04C5-46DE-BB37-E665C7BC9A14}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA809916-98B5-40B6-8033-6DBF77C7F810}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA809916-98B5-40B6-8033-6DBF77C7F810}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA809916-98B5-40B6-8033-6DBF77C7F810}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA809916-98B5-40B6-8033-6DBF77C7F810}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

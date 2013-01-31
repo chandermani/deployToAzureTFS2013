@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E17EFC81-04C5-46DE-BB37-E665C7BC9A14}</ProjectGuid>
+    <ProjectTypeGuids>{32f31d43-81cc-4c15-9de6-3fc5453562b6};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EastBancTech.DeployToAzure.Activities</RootNamespace>
+    <AssemblyName>EastBancTech.DeployToAzure.Activities</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>%24/deploytoazure/Main/Src/EastBancTech.DeployToAzure/EastBancTech.DeployToAzure.Activities</SccProjectName>
+    <SccLocalPath>.</SccLocalPath>
+    <SccAuxPath>https://tfs.codeplex.com/tfs/tfs26</SccAuxPath>
+    <SccProvider>{4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>EastBancTech.DeployToAzure.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.TeamFoundation.Build.Client, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.TeamFoundation.Build.Workflow, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.TeamFoundation.Client, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.TeamFoundation.Common, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.TeamFoundation.VersionControl.Client, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.TeamFoundation.VersionControl.Client.11.0.50727.1\lib\Microsoft.TeamFoundation.VersionControl.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TeamFoundation.VersionControl.Common, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.WindowsAzure.StorageClient, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\Windows Azure SDK\v1.2\ref\Microsoft.WindowsAzure.StorageClient.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Activities" />
+    <Reference Include="System.Activities.Presentation" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Activities" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Build\FormatBuildLabel.cs" />
+    <Compile Include="Build\PackageCloudProject.xaml.cs">
+      <DependentUpon>PackageCloudProject.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Build\WaitForDelpoymentToStart.xaml.cs">
+      <DependentUpon>WaitForDelpoymentToStart.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\EnumExtension.cs" />
+    <Compile Include="Model\DeploymentSlot.cs" />
+    <Compile Include="Helpers\AzureBlob.cs" />
+    <Compile Include="BaseActivity.cs" />
+    <Compile Include="CommunicationExceptionEx.cs" />
+    <Compile Include="Helpers\ConfigurationConstants.cs" />
+    <Compile Include="Build\DeployToAzure.xaml.cs">
+      <DependentUpon>DeployToAzure.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Build\FindPackageAndConfigurationFiles.cs" />
+    <Compile Include="HostedServices\GetDeployment.cs" />
+    <Compile Include="Common\GetOperationStatus.cs" />
+    <Compile Include="Common\LoadCertificate.cs" />
+    <Compile Include="HostedServices\NewDeployment.cs" />
+    <Compile Include="OperationActivity.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="HostedServices\RemoveDeployment.cs" />
+    <Compile Include="ResourceModel\ActiveTransfer.cs" />
+    <Compile Include="ResourceModel\AffinityGroup.cs" />
+    <Compile Include="ResourceModel\Certificates.cs" />
+    <Compile Include="ResourceModel\Constants.cs" />
+    <Compile Include="ResourceModel\Deployment.cs" />
+    <Compile Include="ResourceModel\DiagnosticCommonConfiguration.cs" />
+    <Compile Include="ResourceModel\HostedService.cs" />
+    <Compile Include="ResourceModel\IServiceManagementExternalApi.cs" />
+    <Compile Include="ResourceModel\OperationTracking.cs" />
+    <Compile Include="ResourceModel\ServiceManagementError.cs" />
+    <Compile Include="ResourceModel\ServiceManagementHelper.cs" />
+    <Compile Include="ResourceModel\StorageService.cs" />
+    <Compile Include="HostedServices\SetDeploymentStatus.cs" />
+    <Compile Include="Helpers\Utility.cs" />
+    <Compile Include="Common\WaitForOperationToComplete.xaml.cs">
+      <DependentUpon>WaitForOperationToComplete.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <XamlAppDef Include="Build\DeployToAzure.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </XamlAppDef>
+    <XamlAppDef Include="Common\WaitForOperationToComplete.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </XamlAppDef>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="EastBancTech.DeployToAzure.snk" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <XamlAppDef Include="Build\PackageCloudProject.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </XamlAppDef>
+  </ItemGroup>
+  <ItemGroup>
+    <XamlAppDef Include="Build\WaitForDelpoymentToStart.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </XamlAppDef>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
