@@ -1,0 +1,145 @@
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="EastBancTech.DeployToAzure.Activities.Build.DeployToAzure" this:DeployToAzure.StoreLocation="[StoreLocation.LocalMachine]" this:DeployToAzure.StoreName="[StoreName.Root]" this:DeployToAzure.Slot="[DeploymentSlot.Production]"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:local="clr-namespace:EastBancTech.DeployToAzure.Activities.Model"
+ xmlns:local1="clr-namespace:Microsoft.Samples.WindowsAzure.ServiceManagement"
+ xmlns:local2="clr-namespace:EastBancTech.DeployToAzure.Activities.Common"
+ xmlns:local3="clr-namespace:EastBancTech.DeployToAzure.Activities.HostedServices"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:sscx="clr-namespace:System.Security.Cryptography.X509Certificates;assembly=System"
+ xmlns:this="clr-namespace:EastBancTech.DeployToAzure.Activities.Build"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="StoreLocation" Type="InArgument(sscx:StoreLocation)" />
+    <x:Property Name="StoreName" Type="InArgument(sscx:StoreName)" />
+    <x:Property Name="Thumbprint" Type="InArgument(x:String)" />
+    <x:Property Name="HostedServiceName" Type="InArgument(x:String)" />
+    <x:Property Name="StorageServiceName" Type="InArgument(x:String)" />
+    <x:Property Name="Slot" Type="InArgument(local:DeploymentSlot)" />
+    <x:Property Name="SubscriptionId" Type="InArgument(x:String)" />
+    <x:Property Name="DeploymentName" Type="InArgument(x:String)" />
+    <x:Property Name="Label" Type="InArgument(x:String)" />
+    <x:Property Name="BuildPath" Type="InArgument(x:String)" />
+    <x:Property Name="ConfigurationFile" Type="InArgument(x:String)" />
+    <x:Property Name="PackageFile" Type="InArgument(x:String)" />
+    <x:Property Name="Certificate" Type="InOutArgument(sscx:X509Certificate2)" />
+    <x:Property Name="Channel" Type="InOutArgument(local1:IServiceManagement)" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap2010:WorkflowViewState.IdRef>EastBancTech.DeployToAzure.Activities.Build.DeployToAzure_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Activities.Debugger</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>System.Security.Cryptography.X509Certificates</x:String>
+      <x:String>System.Text</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>EastBancTech.DeployToAzure.Activities</x:String>
+      <x:String>EastBancTech.DeployToAzure.Activities.Model</x:String>
+      <x:String>Microsoft.Samples.WindowsAzure.ServiceManagement</x:String>
+      <x:String>EastBancTech.DeployToAzure.Activities.Common</x:String>
+      <x:String>EastBancTech.DeployToAzure.Activities.HostedServices</x:String>
+      <x:String>EastBancTech.DeployToAzure.Activities.Build</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>EastBancTech.DeployToAzure.Activities</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap2010:WorkflowViewState.IdRef="Sequence_2">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="local1:Deployment" Name="DeploymentVar" />
+      <Variable x:TypeArguments="x:String" Name="OperationId" />
+    </Sequence.Variables>
+    <If Condition="[Certificate Is Nothing]" DisplayName="If ceritificate is not loaded" sap2010:WorkflowViewState.IdRef="If_1">
+      <If.Then>
+        <local2:LoadCertificate sap2010:WorkflowViewState.IdRef="LoadCertificate_1" Result="[Certificate]" StoreLocation="[StoreLocation]" StoreName="[StoreName]" Thumbprint="[Thumbprint]" />
+      </If.Then>
+    </If>
+    <local3:GetDeployment Certificate="[Certificate]" Channel="[Channel]" Deployment="[DeploymentVar]" HostedServiceName="[HostedServiceName]" sap2010:WorkflowViewState.IdRef="GetDeployment_1" Slot="[Slot]" SubscriptionId="[SubscriptionId]" />
+    <If Condition="[DeploymentVar.Status &lt;&gt; Nothing]" DisplayName="If slot is used" sap2010:WorkflowViewState.IdRef="If_2">
+      <If.Then>
+        <Sequence sap2010:WorkflowViewState.IdRef="Sequence_1">
+          <local3:SetDeploymentStatus Certificate="[Certificate]" Channel="[Channel]" HostedServiceName="[HostedServiceName]" sap2010:WorkflowViewState.IdRef="SetDeploymentStatus_1" OperationId="[OperationId]" Slot="[Slot]" Status="Suspended" SubscriptionId="[SubscriptionId]" />
+          <local2:WaitForOperationToComplete Certificate="[Certificate]" Channel="[Channel]" sap2010:WorkflowViewState.IdRef="WaitForOperationToComplete_1" OperationId="[OperationId]" SubscriptionId="[SubscriptionId]" />
+          <local3:RemoveDeployment Certificate="[Certificate]" Channel="[Channel]" HostedServiceName="[HostedServiceName]" sap2010:WorkflowViewState.IdRef="RemoveDeployment_1" OperationId="[OperationId]" Slot="[Slot]" SubscriptionId="[SubscriptionId]" />
+          <local2:WaitForOperationToComplete Certificate="[Certificate]" Channel="[Channel]" sap2010:WorkflowViewState.IdRef="WaitForOperationToComplete_2" OperationId="[OperationId]" SubscriptionId="[SubscriptionId]" />
+        </Sequence>
+      </If.Then>
+    </If>
+    <local3:NewDeployment Certificate="[Certificate]" Channel="[Channel]" Configuration="[ConfigurationFile]" DeploymentName="[DeploymentName]" HostedServiceName="[HostedServiceName]" sap2010:WorkflowViewState.IdRef="NewDeployment_1" Label="[Label]" OperationId="[OperationId]" Package="[PackageFile]" Slot="[Slot]" StorageServiceName="[StorageServiceName]" SubscriptionId="[SubscriptionId]" />
+    <local2:WaitForOperationToComplete Certificate="[Certificate]" Channel="[Channel]" sap2010:WorkflowViewState.IdRef="WaitForOperationToComplete_3" OperationId="[OperationId]" SubscriptionId="[SubscriptionId]" />
+    <local3:SetDeploymentStatus Certificate="[Certificate]" Channel="[Channel]" HostedServiceName="[HostedServiceName]" sap2010:WorkflowViewState.IdRef="SetDeploymentStatus_2" OperationId="[OperationId]" Slot="[Slot]" Status="Running" SubscriptionId="[SubscriptionId]" />
+    <local2:WaitForOperationToComplete Certificate="[Certificate]" Channel="[Channel]" sap2010:WorkflowViewState.IdRef="WaitForOperationToComplete_4" OperationId="[OperationId]" SubscriptionId="[SubscriptionId]" />
+    <sads:DebugSymbol.Symbol>d3lFOlxkZXBsb3l0b2F6dXJlLTE5MjUzXE1haW5cU3JjXEVhc3RCYW5jVGVjaC5EZXBsb3lUb0F6dXJlXEVhc3RCYW5jVGVjaC5EZXBsb3lUb0F6dXJlLkFjdGl2aXRpZXNcQnVpbGRcRGVwbG95VG9BenVyZS54YW1sTAHMAQHdAQEEAZABAa0BAQMB9wEBkwIBAlADag4CAQFVBVkKAgF2WgVa9AECAWlbBWQKAgE5ZQVliwMCASJmBWbXAQIBGWcFZ5ACAgELaAVo1wECAQJVE1UtAgF3VwlXwAECAXlaP1pKAgF0WnpajwECAXJa3wFa8QECAXBaJ1o2AgFuWlZaZwIBbFrHAVrPAQIBalsTWzwCATpdCWIUAgE7ZdACZeYCAgE3ZT9lSgIBNWWHAmWWAgIBM2WfAmWuAgIBMWXxAWX6AQIBL2WjAWW4AQIBLWX2AmWIAwIBK2VZZW4CASllJ2U2AgEnZX5lkAECASVltAJlvAICASNmTGZXAgEgZqMBZrIBAgEeZsIBZtQBAgEcZjRmQwIBGmdFZ1ACARdnvQFnzAECARVnY2d4AgETZ/sBZ40CAgERZ+IBZ+sBAgEQZy1nPAIBDmfSAWfaAQIBDGhMaFcCAQloowFosgECAQdowgFo1AECAQVoNGhDAgEDV5YBV6MBAwGAAVevAVe9AQIBfld6V4sBAgF8V1xXawIBel4LXpgCAgFbXwtf3QECAVJgC2D/AQIBRWELYd0BAgE8XkteVgIBZ17DAV7SAQIBZV5pXn4CAWNegwJelQICAWFe6AFe8wECAWBeM15CAgFeXtgBXuABAgFcX1JfXQIBWV+pAV+4AQIBV1/IAV/aAQIBVV86X0kCAVNgSGBTAgFQYL0BYMwBAgFOYGZgewIBTGDqAWD8AQIBSmAwYD8CAUhg0gFg2gECAUZhUmFdAgFDYakBYbgBAgFBYcgBYdoBAgE/YTphSQIBPQ==</sads:DebugSymbol.Symbol>
+  </Sequence>
+  <sap2010:WorkflowViewState.ViewStateManager>
+    <sap2010:ViewStateManager>
+      <sap2010:ViewStateData Id="LoadCertificate_1" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="526,208">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="GetDeployment_1" sap:VirtualizedContainerService.HintSize="526,22" />
+      <sap2010:ViewStateData Id="SetDeploymentStatus_1" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="WaitForOperationToComplete_1" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="RemoveDeployment_1" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="WaitForOperationToComplete_2" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="222,332">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="If_2" sap:VirtualizedContainerService.HintSize="526,480" />
+      <sap2010:ViewStateData Id="NewDeployment_1" sap:VirtualizedContainerService.HintSize="526,22" />
+      <sap2010:ViewStateData Id="WaitForOperationToComplete_3" sap:VirtualizedContainerService.HintSize="526,804" />
+      <sap2010:ViewStateData Id="SetDeploymentStatus_2" sap:VirtualizedContainerService.HintSize="464,22" />
+      <sap2010:ViewStateData Id="WaitForOperationToComplete_4" sap:VirtualizedContainerService.HintSize="526,804" />
+      <sap2010:ViewStateData Id="Sequence_2" sap:VirtualizedContainerService.HintSize="548,2726">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="EastBancTech.DeployToAzure.Activities.Build.DeployToAzure_1" sap:VirtualizedContainerService.HintSize="588,2806" />
+    </sap2010:ViewStateManager>
+  </sap2010:WorkflowViewState.ViewStateManager>
+</Activity>

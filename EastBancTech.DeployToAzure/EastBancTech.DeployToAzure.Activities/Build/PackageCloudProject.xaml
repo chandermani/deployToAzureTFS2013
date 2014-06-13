@@ -1,0 +1,84 @@
+﻿<Activity mc:Ignorable="sap" x:Class="EastBancTech.DeployToAzure.Activities.Build.PackageCloudProject" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:local="clr-namespace:EastBancTech.DeployToAzure.Activities.Build" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mtbw="clr-namespace:Microsoft.TeamFoundation.Build.Workflow;assembly=Microsoft.TeamFoundation.Build.Workflow" xmlns:mtbw1="clr-namespace:Microsoft.TeamFoundation.Build.Workflow;assembly=Microsoft.TeamFoundation.Build.Workflow, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" xmlns:mtbwa="clr-namespace:Microsoft.TeamFoundation.Build.Workflow.Activities;assembly=Microsoft.TeamFoundation.Build.Workflow" xmlns:mtbwa1="clr-namespace:Microsoft.TeamFoundation.Build.Workflow.Activities;assembly=Microsoft.TeamFoundation.Build.Workflow, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" xmlns:mtvc="clr-namespace:Microsoft.TeamFoundation.VersionControl.Client;assembly=Microsoft.TeamFoundation.VersionControl.Client" xmlns:mv="clr-namespace:Microsoft.VisualBasic;assembly=System" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:s1="clr-namespace:System;assembly=System" xmlns:s2="clr-namespace:System;assembly=System.Xml" xmlns:s3="clr-namespace:System;assembly=System.Core" xmlns:s4="clr-namespace:System;assembly=System.ServiceModel" xmlns:sa="clr-namespace:System.Activities;assembly=System.Activities" xmlns:sad="clr-namespace:System.Activities.Debugger;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System" xmlns:scg1="clr-namespace:System.Collections.Generic;assembly=System.ServiceModel" xmlns:scg2="clr-namespace:System.Collections.Generic;assembly=System.Core" xmlns:scg3="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:sl="clr-namespace:System.Linq;assembly=System.Core" xmlns:st="clr-namespace:System.Text;assembly=mscorlib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="Configuration" Type="InArgument(x:String)">
+      <x:Property.Attributes>
+        <RequiredArgumentAttribute />
+      </x:Property.Attributes>
+    </x:Property>
+    <x:Property Name="Platform" Type="InArgument(x:String)">
+      <x:Property.Attributes>
+        <RequiredArgumentAttribute />
+      </x:Property.Attributes>
+    </x:Property>
+    <x:Property Name="CloudProject" Type="InArgument(x:String)">
+      <x:Property.Attributes>
+        <RequiredArgumentAttribute />
+      </x:Property.Attributes>
+    </x:Property>
+    <x:Property Name="OutputDirectory" Type="InArgument(x:String)">
+      <x:Property.Attributes>
+        <RequiredArgumentAttribute />
+      </x:Property.Attributes>
+    </x:Property>
+    <x:Property Name="Verbosity" Type="InArgument(mtbw:BuildVerbosity)">
+      <x:Property.Attributes>
+        <RequiredArgumentAttribute />
+      </x:Property.Attributes>
+    </x:Property>
+    <x:Property Name="MSBuildPlatform" Type="InArgument(mtbwa:ToolPlatform)">
+      <x:Property.Attributes>
+        <RequiredArgumentAttribute />
+      </x:Property.Attributes>
+    </x:Property>
+    <x:Property Name="LogFileDropLocation" Type="InArgument(x:String)">
+      <x:Property.Attributes>
+        <RequiredArgumentAttribute />
+      </x:Property.Attributes>
+    </x:Property>
+    <x:Property Name="Workspace" Type="InArgument(mtvc:Workspace)">
+      <x:Property.Attributes>
+        <RequiredArgumentAttribute />
+      </x:Property.Attributes>
+    </x:Property>
+    <x:Property Name="ConfigurationFile" Type="OutArgument(x:String)" />
+    <x:Property Name="PackageFile" Type="OutArgument(x:String)" />
+    <x:Property Name="TargetProfile" Type="InArgument(x:String)" />
+  </x:Members>
+  <sap:VirtualizedContainerService.HintSize>304,510</sap:VirtualizedContainerService.HintSize>
+  <mva:VisualBasic.Settings>Assembly references and imported namespaces for internal implementation</mva:VisualBasic.Settings>
+  <Sequence DisplayName="Package Cloud Project" sad:XamlDebuggerXmlReader.FileName="C:\Dropbox\EBT\OpenSource\DeployToAzure\Main\Src\EastBancTech.DeployToAzure\EastBancTech.DeployToAzure.Activities\Build\PackageCloudProject.xaml" sap:VirtualizedContainerService.HintSize="264,470">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Name="localCloudProject" />
+      <Variable x:TypeArguments="x:String" Name="outputPath" />
+      <Variable x:TypeArguments="x:String" Name="publishDir" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg3:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <Assign sap:VirtualizedContainerService.HintSize="242,62">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[outputPath]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String" xml:space="preserve">[If(OutputDirectory.EndsWith("\\"),
+   OutputDirectory.Remove(OutputDirectory.Length - 2),
+   If(OutputDirectory.EndsWith("\"),
+       OutputDirectory.Remove(OutputDirectory.Length - 1),
+       OutputDirectory))]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <Assign sap:VirtualizedContainerService.HintSize="242,58">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[publishDir]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">[outputPath + "\CloudPackage\\"]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <mtbwa:ConvertWorkspaceItem DisplayName="Convert cloud project server path" sap:VirtualizedContainerService.HintSize="242,22" Input="[CloudProject]" Result="[localCloudProject]" Workspace="[Workspace]" />
+    <mtbwa:MSBuild CommandLineArguments="[String.Format(&quot;/p:OutputPath=&quot;&quot;{0}&quot;&quot; /p:SkipInvalidConfigurations=true /p:PublishDir=&quot;&quot;{1}&quot;&quot; {2}&quot;, outputPath, publishDir,&#xA;              If(Not String.IsNullOrEmpty(TargetProfile), String.Format(&quot; /p:TargetProfile={0}&quot;, TargetProfile), &quot;&quot;))]" Configuration="[Configuration]" DisplayName="Run MSBuild for Cloud Project" sap:VirtualizedContainerService.HintSize="242,22" LogFileDropLocation="[LogFileDropLocation]" OutDir="[outputPath]" Platform="[Platform]" Project="[localCloudProject]" RunCodeAnalysis="[CodeAnalysisOption.Never]" mva:VisualBasic.Settings="Assembly references and imported namespaces serialized as XML namespaces" Targets="[New String() {&quot;Publish&quot;}]" TargetsNotLogged="[New String() {&quot;GetNativeManifest&quot;, &quot;GetCopyToOutputDirectoryItems&quot;, &quot;GetTargetPath&quot;}]" ToolPlatform="[MSBuildPlatform]" Verbosity="[Verbosity]" />
+    <local:FindPackageAndConfigurationFiles Configuration="[ConfigurationFile]" sap:VirtualizedContainerService.HintSize="242,22" Package="[PackageFile]" Path="[publishDir]" />
+  </Sequence>
+</Activity>

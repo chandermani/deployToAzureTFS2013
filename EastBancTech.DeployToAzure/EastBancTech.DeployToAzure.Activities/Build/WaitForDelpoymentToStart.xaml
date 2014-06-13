@@ -1,0 +1,145 @@
+﻿<Activity mc:Ignorable="sap" x:Class="EastBancTech.DeployToAzure.Activities.Build.WaitForDelpoymentToStart" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:local="clr-namespace:Microsoft.Samples.WindowsAzure.ServiceManagement" xmlns:local1="clr-namespace:EastBancTech.DeployToAzure.Activities.Model" xmlns:local2="clr-namespace:EastBancTech.DeployToAzure.Activities.HostedServices" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mtbc="clr-namespace:Microsoft.TeamFoundation.Build.Client;assembly=Microsoft.TeamFoundation.Build.Client, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" xmlns:mtbc1="clr-namespace:Microsoft.TeamFoundation.Build.Client;assembly=Microsoft.TeamFoundation.Build.Client" xmlns:mtbwa="clr-namespace:Microsoft.TeamFoundation.Build.Workflow.Activities;assembly=Microsoft.TeamFoundation.Build.Workflow" xmlns:mv="clr-namespace:Microsoft.VisualBasic;assembly=System" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:s1="clr-namespace:System;assembly=System" xmlns:s2="clr-namespace:System;assembly=System.Xml" xmlns:s3="clr-namespace:System;assembly=System.Core" xmlns:s4="clr-namespace:System;assembly=System.ServiceModel" xmlns:sa="clr-namespace:System.Activities;assembly=System.Activities" xmlns:sad="clr-namespace:System.Activities.Debugger;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System" xmlns:scg1="clr-namespace:System.Collections.Generic;assembly=System.ServiceModel" xmlns:scg2="clr-namespace:System.Collections.Generic;assembly=System.Core" xmlns:scg3="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:sl="clr-namespace:System.Linq;assembly=System.Core" xmlns:srs="clr-namespace:System.Runtime.Serialization;assembly=System.Runtime.Serialization" xmlns:srs1="clr-namespace:System.Runtime.Serialization;assembly=mscorlib" xmlns:sscx="clr-namespace:System.Security.Cryptography.X509Certificates;assembly=System" xmlns:sscx1="clr-namespace:System.Security.Cryptography.X509Certificates;assembly=System.Core" xmlns:sscx2="clr-namespace:System.Security.Cryptography.X509Certificates;assembly=mscorlib" xmlns:st="clr-namespace:System.Text;assembly=mscorlib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="Certificate" Type="InArgument(sscx:X509Certificate2)" />
+    <x:Property Name="Channel" Type="InArgument(local:IServiceManagement)" />
+    <x:Property Name="HostedServiceName" Type="InArgument(x:String)" />
+    <x:Property Name="Slot" Type="InArgument(local1:DeploymentSlot)" />
+    <x:Property Name="SubscriptionId" Type="InArgument(x:String)" />
+    <x:Property Name="TimeToWait" Type="InArgument(x:TimeSpan)" />
+    <x:Property Name="Deployment" Type="OutArgument(local:Deployment)" />
+  </x:Members>
+  <sap:VirtualizedContainerService.HintSize>574,1677</sap:VirtualizedContainerService.HintSize>
+  <mva:VisualBasic.Settings>Assembly references and imported namespaces for internal implementation</mva:VisualBasic.Settings>
+  <sap:WorkflowViewStateService.ViewState>
+    <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+      <x:Boolean x:Key="ShouldCollapseAll">True</x:Boolean>
+    </scg3:Dictionary>
+  </sap:WorkflowViewStateService.ViewState>
+  <Sequence DisplayName="Wait For Deployment to start" sad:XamlDebuggerXmlReader.FileName="C:\Dropbox\EBT\OpenSource\DeployToAzure\Main\Src\EastBancTech.DeployToAzure\EastBancTech.DeployToAzure.Activities\Build\WaitForDelpoymentToStart.xaml" sap:VirtualizedContainerService.HintSize="264,371">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="s:DateTime" Name="startTime" />
+      <Variable x:TypeArguments="x:Boolean" Name="isReady" />
+      <Variable x:TypeArguments="scg3:Dictionary(x:String, x:String)" Default="[New Dictionary(Of String, String)]" Name="rolesStatuses" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg3:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <Assign sap:VirtualizedContainerService.HintSize="242,58">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:Boolean">[isReady]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:Boolean">False</InArgument>
+      </Assign.Value>
+    </Assign>
+    <Assign sap:VirtualizedContainerService.HintSize="242,58">
+      <Assign.To>
+        <OutArgument x:TypeArguments="s:DateTime">[startTime]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="s:DateTime">[DateTime.Now]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <While DisplayName="While deployment is not ready" sap:VirtualizedContainerService.HintSize="242,51" Condition="[isReady = False]">
+      <Sequence sap:VirtualizedContainerService.HintSize="707,1730">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg3:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <local2:GetDeployment Certificate="[Certificate]" Channel="[Channel]" Deployment="[deployment]" sap:VirtualizedContainerService.HintSize="685,22" HostedServiceName="[HostedServiceName]" Slot="[Slot]" SubscriptionId="[SubscriptionId]" />
+        <If Condition="[deployment.Status &lt;&gt; Nothing]" sap:VirtualizedContainerService.HintSize="685,1236">
+          <If.Then>
+            <Sequence sap:VirtualizedContainerService.HintSize="560,1130">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                </scg3:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <Assign sap:VirtualizedContainerService.HintSize="538,58">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:Boolean">[isReady]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:Boolean">True</InArgument>
+                </Assign.Value>
+              </Assign>
+              <ForEach x:TypeArguments="local:RoleInstance" DisplayName="ForEach&lt;RoleInstance&gt;" sap:VirtualizedContainerService.HintSize="538,908" Values="[deployment.RoleInstanceList]">
+                <ActivityAction x:TypeArguments="local:RoleInstance">
+                  <ActivityAction.Argument>
+                    <DelegateInArgument x:TypeArguments="local:RoleInstance" Name="roleInstance" />
+                  </ActivityAction.Argument>
+                  <Sequence DisplayName="Check status of each role instance" sap:VirtualizedContainerService.HintSize="508,802">
+                    <Sequence.Variables>
+                      <Variable x:TypeArguments="x:String" Name="roleInstanceKey" />
+                    </Sequence.Variables>
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      </scg3:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <Sequence DisplayName="Write role status update" sap:VirtualizedContainerService.HintSize="486,580">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                        </scg3:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <Assign sap:VirtualizedContainerService.HintSize="464,62">
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="x:String">[roleInstanceKey]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="x:String" xml:space="preserve">[String.Format("{0}##{1}",
+              roleInstance.RoleName.Trim().ToUpper(),
+              roleInstance.InstanceName.Trim().ToUpper())]</InArgument>
+                        </Assign.Value>
+                      </Assign>
+                      <If Condition="[If(rolesStatuses.ContainsKey(roleInstanceKey),&#xA;    rolesStatuses(roleInstanceKey) &lt;&gt; roleInstance.InstanceStatus,&#xA;    True)]" DisplayName="If instance status has changed" sap:VirtualizedContainerService.HintSize="464,354">
+                        <If.Then>
+                          <Sequence sap:VirtualizedContainerService.HintSize="301,244">
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                              </scg3:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                            <mtbwa:WriteBuildMessage sap:VirtualizedContainerService.HintSize="242,22" Importance="[Microsoft.TeamFoundation.Build.Client.BuildMessageImportance.High]" Message="[String.Format(&quot;{0} - Role instance {1} is {2}&quot;,&#xA;              DateTime.Now.ToString(&quot;HH:mm:ss&quot;),&#xA;              roleInstance.InstanceName,&#xA;              roleInstance.InstanceStatus)]" mva:VisualBasic.Settings="Assembly references and imported namespaces serialized as XML namespaces" />
+                            <Assign sap:VirtualizedContainerService.HintSize="242,58">
+                              <Assign.To>
+                                <OutArgument x:TypeArguments="x:String">[rolesStatuses(roleInstanceKey)]</OutArgument>
+                              </Assign.To>
+                              <Assign.Value>
+                                <InArgument x:TypeArguments="x:String">[roleInstance.InstanceStatus]</InArgument>
+                              </Assign.Value>
+                            </Assign>
+                          </Sequence>
+                        </If.Then>
+                      </If>
+                    </Sequence>
+                    <Assign sap:VirtualizedContainerService.HintSize="242,58">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="x:Boolean">[isReady]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="x:Boolean">[isReady And (roleInstance.InstanceStatus = RoleInstanceStatus.Ready)]</InArgument>
+                      </Assign.Value>
+                    </Assign>
+                  </Sequence>
+                </ActivityAction>
+              </ForEach>
+            </Sequence>
+          </If.Then>
+        </If>
+        <If Condition="[(isReady = False) And (startTime + TimeToWait) &lt; DateTime.Now]" DisplayName="If timeout" sap:VirtualizedContainerService.HintSize="464,206">
+          <If.Then>
+            <Throw DisplayName="Throw timeout exception" Exception="[New Exception(&quot;WaitForDeploymentToStart fail:Timeout exceeded&quot;)]" sap:VirtualizedContainerService.HintSize="269,100" />
+          </If.Then>
+        </If>
+        <Delay Duration="00:00:20" sap:VirtualizedContainerService.HintSize="464,22" />
+      </Sequence>
+    </While>
+  </Sequence>
+</Activity>
